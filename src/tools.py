@@ -272,7 +272,7 @@ def analyze_image(image_bytes: bytes) -> Dict[str, Any]:
             "description": "Error: GEMINI_API_KEY is not set in environment or .env."
         }
         
-    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
     client = genai.Client(api_key=api_key)
     
     prompt = """Analyze this image for civic infrastructure complaints in Ahmedabad.
