@@ -1,0 +1,202 @@
+{
+  "_system_notice": "DEMO MOCK AMC SYSTEM - Not connected to any real government portal",
+  "is_mock_system": true,
+  "departments": {
+    "pothole": "Roads & Buildings",
+    "garbage": "Solid Waste Management",
+    "streetlight": "Light Department",
+    "waterlogging": "Storm Water Drainage"
+  },
+  "wards": [
+    {
+      "id": "W12",
+      "name": "Navrangpura",
+      "zone": "West",
+      "areas": [
+        "Navrangpura",
+        "Navrang Pura",
+        "Stadium",
+        "Sardar Patel Stadium",
+        "CG Road",
+        "C.G. Road",
+        "C G Road",
+        "Chimanlal Girdharlal Road",
+        "Commerce Six Roads",
+        "Gulbai Tekra",
+        "Gujarat University",
+        "Mithakhali",
+        "Mithakhali Six Roads",
+        "Law Garden"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_West",
+        "@AMC_Ward12_Eng"
+      ]
+    },
+    {
+      "id": "W27",
+      "name": "Maninagar",
+      "zone": "South",
+      "areas": [
+        "Maninagar",
+        "Mani Nagar",
+        "Kankaria",
+        "Kankaria Lake",
+        "Jawahar Chowk",
+        "Rambaug",
+        "Rambaug Cross Road",
+        "Bhairavnath",
+        "Bhairavnath Road",
+        "Maninagar Railway Station",
+        "Uttamnagar",
+        "Pushpkunj"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_South",
+        "@AMC_Ward27_Eng"
+      ]
+    },
+    {
+      "id": "W05",
+      "name": "Bodakdev",
+      "zone": "North West",
+      "areas": [
+        "Bodakdev",
+        "Bodak Dev",
+        "Sindhu Bhavan",
+        "Sindhu Bhavan Road",
+        "SBR",
+        "Judges Bungalow",
+        "Judges Bungalow Road",
+        "Pakwan",
+        "Pakwan Cross Road",
+        "Rajpath Club",
+        "Bodakdev Gam"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_NW",
+        "@AMC_Ward05_Eng"
+      ]
+    },
+    {
+      "id": "W08",
+      "name": "Satellite",
+      "zone": "South West",
+      "areas": [
+        "Satellite",
+        "Satellite Road",
+        "Shivranjani",
+        "Shivranjani Cross Road",
+        "Shyamal",
+        "Shyamal Cross Road",
+        "Jodhpur",
+        "Jodhpur Gam",
+        "Jodhpur Cross Road",
+        "Star Bazaar",
+        "Prernatirth Derasar Road"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_SW",
+        "@AMC_Ward08_Eng"
+      ]
+    },
+    {
+      "id": "W15",
+      "name": "Vastrapur",
+      "zone": "West",
+      "areas": [
+        "Vastrapur",
+        "Vastrapur Lake",
+        "IIM",
+        "IIM Ahmedabad",
+        "IIM Road",
+        "Mansi",
+        "Mansi Circle",
+        "Alpha One",
+        "Ahmedabad One Mall",
+        "Sanjivani Hospital"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_West",
+        "@AMC_Ward15_Eng"
+      ]
+    },
+    {
+      "id": "W19",
+      "name": "Paldi",
+      "zone": "Central",
+      "areas": [
+        "Paldi",
+        "Paldi Cross Road",
+        "Anjali",
+        "Anjali Cross Road",
+        "Mahalaxmi",
+        "Mahalaxmi Five Roads",
+        "Fatehpura",
+        "Kocharab",
+        "Kocharab Ashram",
+        "Bhattha",
+        "Dharnidhar",
+        "Dharnidhar Derasar"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_Central",
+        "@AMC_Ward19_Eng"
+      ]
+    },
+    {
+      "id": "W02",
+      "name": "Sabarmati",
+      "zone": "North West",
+      "areas": [
+        "Sabarmati",
+        "Sabarmati Ashram",
+        "RTO",
+        "Subhash Bridge",
+        "Dharmanagar",
+        "Ramnagar",
+        "Sabarmati Railway Station",
+        "Motera Road",
+        "Kalyan Kendra"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_NW",
+        "@AMC_Ward02_Eng"
+      ]
+    },
+    {
+      "id": "W01",
+      "name": "Chandkheda",
+      "zone": "West",
+      "areas": [
+        "Chandkheda",
+        "Chand Kheda",
+        "Motera",
+        "Narendra Modi Stadium",
+        "IOC Road",
+        "Zundal",
+        "Zundal Circle",
+        "Visat",
+        "Visat Circle",
+        "Tapovan Circle"
+      ],
+      "mock_social_handles": [
+        "@AMC_Mock_West",
+        "@AMC_Ward01_Eng"
+      ]
+    }
+  ],
+  "complaints": [
+    {
+      "trackingId": "AMC-2026-000123",
+      "ward_id": "W12",
+      "ward_name": "Navrangpura",
+      "zone": "West",
+      "issue": "pothole",
+      "department": "Roads & Buildings",
+      "description": "Large dangerous pothole near Commerce Six Roads intersection.",
+      "status": "Assigned",
+      "filedAt": "2026-10-24T17:20:00+05:30"
+    }
+  ]
+}
