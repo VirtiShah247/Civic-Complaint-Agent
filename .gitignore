@@ -1,0 +1,7 @@
+.env
+data/eval/
+data/geocache.json
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/
