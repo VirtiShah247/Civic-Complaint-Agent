@@ -256,10 +256,26 @@ def get_status(
     }
 
 
+def _compress_and_optimize_image(image_bytes: bytes, max_size: int = 800) -> bytes:
+    """Resize and compress image to reduce network upload payload and speed up Gemini analysis."""
+    import io
+    from PIL import Image
+    try:
+        with Image.open(io.BytesIO(image_bytes)) as img:
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+            img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+            output = io.BytesIO()
+            img.save(output, format="JPEG", quality=80, optimize=True)
+            return output.getvalue()
+    except Exception:
+        return image_bytes
+
+
 def analyze_image(image_bytes: bytes) -> Dict[str, Any]:
     """
     Zero-shot Gemini vision analysis using google-genai SDK.
-    Enforces structured JSON output and exponential backoff on 429/5xx.
+    Optimized with image compression, structured JSON output, and exponential backoff on 429/5xx.
     """
     from google import genai
     from google.genai import types
@@ -274,6 +290,10 @@ def analyze_image(image_bytes: bytes) -> Dict[str, Any]:
         
     model_name = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
     client = genai.Client(api_key=api_key)
+    
+    # Optimize payload for fast upload and inference
+    optimized_bytes = _compress_and_optimize_image(image_bytes)
+
     
     prompt = """Analyze this image for civic infrastructure complaints in Ahmedabad.
 Identify if there is one of the following civic issues:
@@ -300,13 +320,14 @@ Respond in strict JSON with:
                 contents=[
                     prompt,
                     types.Part.from_bytes(
-                        data=image_bytes,
+                        data=optimized_bytes,
                         mime_type="image/jpeg",
                     ),
                 ],
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
                     temperature=0.1,
+                    max_output_tokens=300,
                 ),
             )
             

@@ -145,8 +145,19 @@ class CivicComplaintAgent:
                     f"📍 **Ward Location Needed**{gps_note}: Please enter your area name or landmark in Ahmedabad (e.g., Navrangpura, Maninagar, CG Road, Bodakdev) so I can route this to the correct ward office."
                 )
 
+        # Check for cancellation
+        cancellation_phrases = ["cancel", "abort", "stop", "nevermind", "clear"]
+        if any(phrase == lower_text or lower_text.startswith(phrase) for phrase in cancellation_phrases):
+            if self.pending_confirmation or self.pending_issue_details:
+                self.pending_confirmation = None
+                self.pending_issue_details = None
+                return "❌ Action cancelled. You can upload a new photo, enter a new area, or check the status of an existing complaint."
+            else:
+                return "No pending complaint action to cancel. How else can I assist you?"
+
         # 2. Check for explicit confirmation to file
         confirmation_phrases = ["confirm", "yes", "proceed", "file it", "file complaint", "please file", "sure", "ok", "go ahead"]
+
         if self.pending_confirmation and any(phrase == lower_text or lower_text.startswith(phrase) for phrase in confirmation_phrases):
             p = self.pending_confirmation
             result = file_complaint(

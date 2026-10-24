@@ -139,10 +139,12 @@ with st.sidebar:
         st.session_state.last_gps = None
         st.rerun()
 
+import time
+
 # --- MAIN CHAT & WORKFLOW ---
 # 1. Media Upload Section
 with st.container():
-    col1, col2 = st.columns([2, 1])
+    col1, col2, col3 = st.columns([4, 3, 2])
     with col1:
         uploaded_file = st.file_uploader(
             "📸 Upload Issue Photo (Pothole / Garbage / Streetlight / Waterlogging)",
@@ -155,6 +157,16 @@ with st.container():
             placeholder="e.g. CG Road, Navrangpura",
             key="quick_area"
         )
+    with col3:
+        st.write("")  # Vertical spacing
+        st.write("")
+        if st.button("❌ Cancel / Clear", key="clear_upload_btn", use_container_width=True):
+            if "last_uploaded_name" in st.session_state:
+                del st.session_state["last_uploaded_name"]
+            st.session_state.last_gps = None
+            agent.pending_confirmation = None
+            agent.pending_issue_details = None
+            st.rerun()
 
 # If an image was just uploaded
 if uploaded_file is not None and ("last_uploaded_name" not in st.session_state or st.session_state.last_uploaded_name != uploaded_file.name):
@@ -179,12 +191,29 @@ if uploaded_file is not None and ("last_uploaded_name" not in st.session_state o
         "image": pil_img
     })
     
-    # Run Agent
+    # Progress Tracker with Time Estimator
+    progress_placeholder = st.empty()
+    progress_bar = progress_placeholder.progress(20, text="⏳ Step 1/3: Optimizing image payload & reading EXIF... (Est: ~2-3s)")
+    t_start = time.time()
+    
+    time.sleep(0.2)
+    progress_bar.progress(55, text="🤖 Step 2/3: Zero-shot Gemini Vision analyzing civic issue... (Est: ~1s)")
+    
     prompt_text = quick_area if quick_area else ""
-    with st.spinner("🤖 Analyzing photo with Gemini Vision & resolving ward..."):
-        response = agent.run_turn(user_message=prompt_text, image_bytes=img_bytes, image_obj=pil_img)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    response = agent.run_turn(user_message=prompt_text, image_bytes=img_bytes, image_obj=pil_img)
+    elapsed = time.time() - t_start
+    
+    progress_bar.progress(100, text=f"✅ Step 3/3: Routing complete! (Finished in {elapsed:.1f}s)")
+    time.sleep(0.6)
+    progress_placeholder.empty()
+    
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": response,
+        "elapsed": f"{elapsed:.1f}s"
+    })
     st.rerun()
+
 
 # Optional GPS Map Pin Display
 if st.session_state.last_gps:
@@ -205,6 +234,9 @@ for msg in st.session_state.messages:
         if "image" in msg and msg["image"]:
             st.image(msg["image"], width=320)
         st.markdown(msg["content"])
+        if "elapsed" in msg:
+            st.caption(f"⚡ *Response generated in {msg['elapsed']}*")
+
 
 # Explicit Confirmation Action Buttons (if pending confirmation)
 if agent.pending_confirmation:
